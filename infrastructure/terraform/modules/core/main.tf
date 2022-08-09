@@ -50,3 +50,13 @@ data "kubernetes_service" "ingress" {
     helm_release.airy_core
   ]
 }
+
+data "kubernetes_config_map" "core_config" {
+  metadata {
+    name      = "core-config"
+    namespace = var.namespace
+  }
+  depends_on = [
+    helm_release.airy_core
+  ]
+}

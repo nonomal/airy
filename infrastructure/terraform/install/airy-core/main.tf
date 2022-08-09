@@ -17,7 +17,8 @@ provider "kubernetes" {
 }
 
 module "airy_core" {
-  source         = "github.com/airyhq/airy.git/infrastructure/terraform/modules/core"
+  #source         = "github.com/airyhq/airy.git/infrastructure/terraform/modules/core"
+  source         = "../../modules/core"
   values_yaml    = file("${var.airy_workspace}/airy.yaml")
   resources_yaml = file("${path.module}/files/defaultResourceLimits.yaml")
 }
