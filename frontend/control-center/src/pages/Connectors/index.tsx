@@ -9,12 +9,11 @@ import {listChannels} from '../../actions/channel';
 import {listComponents} from '../../actions/catalog';
 import {setPageTitle} from '../../services/pageTitle';
 import {getConnectorsConfiguration} from '../../actions';
-import {getSourcesInfo, SourceInfo} from '../../components/SourceInfo';
-import styles from './index.module.scss';
 import {EmptyStateConnectors} from './EmptyStateConnectors';
 import {ChannelCard} from './ChannelCard';
 import {SimpleLoader} from 'components';
 import {getComponentStatus} from '../../services/getComponentStatus';
+import styles from './index.module.scss';
 
 export enum ComponentStatus {
   enabled = 'Enabled',
@@ -32,28 +31,47 @@ const connector = connect(null, mapDispatchToProps);
 
 const Connectors = (props: ConnectedProps<typeof connector>) => {
   const {listChannels, getConnectorsConfiguration, listComponents} = props;
+  const [connectorsPageList, setConnectorsPageList] = useState([]);
   const channels = useSelector((state: StateModel) => Object.values(allChannelsConnected(state)));
   const components = useSelector((state: StateModel) => state.data.config.components);
   const connectors = useSelector((state: StateModel) => state.data.connector);
   const catalogList = useSelector((state: StateModel) => state.data.catalog);
   const channelsBySource = (Source: Source) => channels.filter((channel: Channel) => channel.source === Source);
-  const [sourcesInfo, setSourcesInfo] = useState([]);
   const [hasInstalledComponents, setHasInstalledComponents] = useState(false);
   const navigate = useNavigate();
   const pageTitle = 'Connectors';
   const isInstalled = true;
 
+  const catalogListArr = Object.entries(catalogList);
+  const emptyCatalogList = catalogListArr.length === 0;
+
+  console.log('connectors', connectors);
+  console.log('components', components);
+  console.log('catalogList', catalogList);
+
+  //map through this array + get image with getChannelAvatar
+  //fix props and names of mapping
+  //to do: upload to s3 svgs of all sources and add the links to dynamodb
+
   useEffect(() => {
-    setSourcesInfo(getSourcesInfo());
     getConnectorsConfiguration();
-    if (Object.entries(catalogList).length === 0)
-      listComponents().catch((error: Error) => {
-        console.error(error);
+    if (emptyCatalogList) {
+      listComponents();
+    } else {
+      catalogListArr.map(component => {
+        if (component[1].installed === true) {
+          setHasInstalledComponents(true);
+          setConnectorsPageList(prevState => [
+            ...prevState,
+            {
+              name: component[1].name,
+              displayName: component[1].displayName,
+              configKey: formatComponentNameToConfigKey(component[1].name),
+            },
+          ]);
+        }
       });
-    if (Object.entries(catalogList).length > 0)
-      Object.entries(catalogList).map(component => {
-        component[1].installed === true && setHasInstalledComponents(true);
-      });
+    }
   }, [catalogList]);
 
   useEffect(() => {
@@ -63,43 +81,41 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
     setPageTitle(pageTitle);
   }, [channels.length]);
 
-  const isComponentInstalled = (repository: string, componentName: string) => {
-    const componentNameCatalog = repository + '/' + componentName;
+  const isComponentInstalled = (componentNameCatalog: string) => {
     return catalogList[componentNameCatalog] && catalogList[componentNameCatalog].installed === true;
   };
 
+  const formatComponentNameToConfigKey = (componentName: string) => componentName.split('/')[1];
+
   return (
     <div className={styles.channelsWrapper}>
-      {sourcesInfo.length > 0 && (
-        <div className={styles.channelsHeadline}>
-          <div>
-            <h1 className={styles.channelsHeadlineText}>Connectors</h1>
-            {Object.entries(catalogList).length === 0 && <SimpleLoader />}
-          </div>
+      <div className={styles.channelsHeadline}>
+        <div>
+          <h1 className={styles.channelsHeadlineText}>Connectors</h1>
+          {emptyCatalogList && <SimpleLoader />}
         </div>
-      )}
+      </div>
       <div className={styles.wrapper}>
-        {!hasInstalledComponents && Object.entries(catalogList).length > 0 ? (
+        {!hasInstalledComponents && catalogListArr.length > 0 ? (
           <EmptyStateConnectors />
         ) : (
           <>
-            {sourcesInfo.map((infoItem: SourceInfo, index: number) => {
+            {connectorsPageList.map((item: {name: string; displayName: string; configKey: string}) => {
               return (
-                (components &&
-                  components[infoItem?.configKey] &&
-                  isInstalled &&
-                  connectors[infoItem.configKey] &&
-                  infoItem.channel &&
-                  isComponentInstalled(infoItem.repository, infoItem.componentName) && (
+                (channelsBySource(getSourceForComponent(item.name)).length > 0 &&
+                  components &&
+                  components[item.configKey] &&
+                  isComponentInstalled(item.name) && (
                     <ChannelCard
-                      sourceInfo={infoItem}
-                      channelsToShow={channelsBySource(infoItem.type).length}
+                      componentInfo={item}
+                      channelsToShow={channelsBySource(getSourceForComponent(item.name)).length}
                       componentStatus={getComponentStatus(
                         isInstalled,
-                        Object.keys(connectors[infoItem.configKey]).length > 0 || infoItem.type === Source.chatPlugin,
-                        components[infoItem.configKey]?.enabled
+                        Object.keys(connectors[item.configKey]).length > 0 ||
+                          getSourceForComponent(item.name) === Source.chatPlugin,
+                        components[item.configKey]?.enabled
                       )}
-                      key={index}
+                      key={item.displayName}
                     />
                   )) ||
                 (channelsBySource(infoItem.type).length > 0 &&
@@ -118,7 +134,6 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
                   )) ||
                 (getSourceForComponent(infoItem.type) &&
                   components &&
-                  components[infoItem.configKey] &&
                   !infoItem.channel &&
                   isComponentInstalled(infoItem.repository, infoItem.componentName) && (
                     <div className={styles.cardContainer} key={infoItem.type}>
