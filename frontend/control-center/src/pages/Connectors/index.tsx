@@ -102,8 +102,7 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
           <>
             {connectorsPageList.map((item: {name: string; displayName: string; configKey: string}) => {
               return (
-                (channelsBySource(getSourceForComponent(item.name)).length > 0 &&
-                  components &&
+                (components &&
                   components[item.configKey] &&
                   isComponentInstalled(item.name) && (
                     <ChannelCard
