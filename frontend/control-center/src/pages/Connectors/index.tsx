@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect, ConnectedProps, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
-import {Channel, Source, getSourceForComponent} from 'model';
+import {Channel, Source} from 'model';
 import InfoCard, {InfoCardStyle} from '../../components/InfoCard';
 import {StateModel} from '../../reducers';
 import {allChannelsConnected} from '../../selectors/channels';
@@ -68,7 +68,7 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
               name: component[1].name,
               displayName: component[1].displayName,
               configKey: formatComponentNameToConfigKey(component[1].name),
-              source: getSourceForComponent(component[1].name)
+              source: component[1].source,
             },
           ]);
         }
@@ -102,26 +102,26 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
           <EmptyStateConnectors />
         ) : (
           <>
-            {connectorsPageList.map((item: {name: string; displayName: string; configKey: string; source: string}) => {
+            {connectorsPageList.map((item: {name: string; displayName: string; configKey: string; source: Source}) => {
               return (
                 (components &&
                   components[item.configKey] &&
                   isInstalled &&
-                  connectors[item.configKey] && 
+                  connectors[item.configKey] &&
                   isComponentInstalled(item.name) && (
                     <ChannelCard
                       componentInfo={item}
-                      channelsToShow={channelsBySource(item.source as Source).length}
+                      channelsToShow={channelsBySource(item.source).length}
                       componentStatus={getComponentStatus(
                         isInstalled,
                         Object.keys(connectors[item.configKey]).length > 0 ||
-                          getSourceForComponent(item.name) === Source.chatPlugin,
+                          item.source === Source.chatPlugin,
                         components[item.configKey]?.enabled
                       )}
                       key={item.displayName}
                     />
                   )) ||
-                (channelsBySource(getSourceForComponent(item.name)).length > 0 &&
+                (channelsBySource(item.source).length > 0 &&
                   isComponentInstalled(item.name) && (
                     <div className={styles.cardContainer} key={item.displayName}>
                       <InfoCard
@@ -134,26 +134,24 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
                       />
                     </div>
                   )) ||
-                (getSourceForComponent(item.name) &&
-                  components &&
-                  isComponentInstalled(item.name) && (
-                    <div className={styles.cardContainer} key={item.displayName}>
-                      <InfoCard
-                        installed={true}
-                        componentStatus={getComponentStatus(
-                          isInstalled,
-                          Object.keys(connectors[item.configKey]).length > 0,
-                          components[item?.configKey].enabled
-                        )}
-                        style={InfoCardStyle.normal}
-                        key={item.displayName}
-                        componentInfo={item}
-                        addChannelAction={() => {
-                          navigate(CONNECTORS_CONNECTED_ROUTE + '/' + item.source);
-                        }}
-                      />
-                    </div>
-                  ))
+                (components && isComponentInstalled(item.name) && (
+                  <div className={styles.cardContainer} key={item.displayName}>
+                    <InfoCard
+                      installed={true}
+                      componentStatus={getComponentStatus(
+                        isInstalled,
+                        Object.keys(connectors[item.configKey]).length > 0,
+                        components[item?.configKey].enabled
+                      )}
+                      style={InfoCardStyle.normal}
+                      key={item.displayName}
+                      componentInfo={item}
+                      addChannelAction={() => {
+                        navigate(CONNECTORS_CONNECTED_ROUTE + '/' + item.source);
+                      }}
+                    />
+                  </div>
+                ))
               );
             })}
           </>
