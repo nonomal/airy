@@ -13,6 +13,7 @@ import {EmptyStateConnectors} from './EmptyStateConnectors';
 import {ChannelCard} from './ChannelCard';
 import {SimpleLoader} from 'components';
 import {getComponentStatus} from '../../services/getComponentStatus';
+import {CONNECTORS_CONNECTED_ROUTE} from '../../routes/routes';
 import styles from './index.module.scss';
 
 export enum ComponentStatus {
@@ -67,6 +68,7 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
               name: component[1].name,
               displayName: component[1].displayName,
               configKey: formatComponentNameToConfigKey(component[1].name),
+              source: getSourceForComponent(component[1].name)
             },
           ]);
         }
@@ -100,14 +102,16 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
           <EmptyStateConnectors />
         ) : (
           <>
-            {connectorsPageList.map((item: {name: string; displayName: string; configKey: string}) => {
+            {connectorsPageList.map((item: {name: string; displayName: string; configKey: string; source: string}) => {
               return (
                 (components &&
                   components[item.configKey] &&
+                  isInstalled &&
+                  connectors[item.configKey] && 
                   isComponentInstalled(item.name) && (
                     <ChannelCard
                       componentInfo={item}
-                      channelsToShow={channelsBySource(getSourceForComponent(item.name)).length}
+                      channelsToShow={channelsBySource(item.source as Source).length}
                       componentStatus={getComponentStatus(
                         isInstalled,
                         Object.keys(connectors[item.configKey]).length > 0 ||
@@ -117,37 +121,35 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
                       key={item.displayName}
                     />
                   )) ||
-                (channelsBySource(infoItem.type).length > 0 &&
-                  !infoItem.channel &&
-                  isComponentInstalled(infoItem.repository, infoItem.componentName) && (
-                    <div className={styles.cardContainer} key={infoItem.type}>
+                (channelsBySource(getSourceForComponent(item.name)).length > 0 &&
+                  isComponentInstalled(item.name) && (
+                    <div className={styles.cardContainer} key={item.displayName}>
                       <InfoCard
                         installed
                         style={InfoCardStyle.expanded}
-                        sourceInfo={infoItem}
+                        componentInfo={item}
                         addChannelAction={() => {
-                          navigate(infoItem.channelsListRoute);
+                          navigate(CONNECTORS_CONNECTED_ROUTE + '/' + item.source);
                         }}
                       />
                     </div>
                   )) ||
-                (getSourceForComponent(infoItem.type) &&
+                (getSourceForComponent(item.name) &&
                   components &&
-                  !infoItem.channel &&
-                  isComponentInstalled(infoItem.repository, infoItem.componentName) && (
-                    <div className={styles.cardContainer} key={infoItem.type}>
+                  isComponentInstalled(item.name) && (
+                    <div className={styles.cardContainer} key={item.displayName}>
                       <InfoCard
                         installed={true}
                         componentStatus={getComponentStatus(
                           isInstalled,
-                          Object.keys(connectors[infoItem.configKey]).length > 0,
-                          components[infoItem?.configKey].enabled
+                          Object.keys(connectors[item.configKey]).length > 0,
+                          components[item?.configKey].enabled
                         )}
                         style={InfoCardStyle.normal}
-                        key={infoItem.type}
-                        sourceInfo={infoItem}
+                        key={item.displayName}
+                        componentInfo={item}
                         addChannelAction={() => {
-                          navigate(infoItem.channelsListRoute);
+                          navigate(CONNECTORS_CONNECTED_ROUTE + '/' + item.source);
                         }}
                       />
                     </div>
