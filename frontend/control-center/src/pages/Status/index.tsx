@@ -24,8 +24,6 @@ const Status = (props: ConnectedProps<typeof connector>) => {
   const [spinAnim, setSpinAnim] = useState(true);
   const {t} = useTranslation();
 
-  console.log('catalogList', catalogList)
-
   useEffect(() => {
     setPageTitle('Status');
     listComponents();
@@ -69,9 +67,9 @@ const Status = (props: ConnectedProps<typeof connector>) => {
         </button>
       </div>
       <div className={styles.listItems}>
-        {components.map((component, index) => {
-          const catalogItem = catalogList[formatToComponentName(component[0])];
-          console.log('catalogItem', catalogItem);
+        {Object.entries(catalogList).length > 0 && components.map((component, index) => {
+            const formattedName = formatToComponentName(component[0]);
+            const catalogItem = catalogList[formattedName];
           return (
             <ComponentListItem
               key={index}
@@ -79,7 +77,7 @@ const Status = (props: ConnectedProps<typeof connector>) => {
               enabled={component[1].enabled}
               services={component[1].services}
               componentName={component[0]}
-              source={catalogItem.source}
+              source={catalogItem?.source}
             />
           );
         })}
