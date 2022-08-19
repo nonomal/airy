@@ -5,13 +5,12 @@ import {Channel, Source} from 'model';
 import InfoCard, {InfoCardStyle} from '../../components/InfoCard';
 import {StateModel} from '../../reducers';
 import {allChannelsConnected} from '../../selectors/channels';
-import {listChannels, listComponents} from '../../actions';
+import {listChannels, listComponents, getConnectorsConfiguration} from '../../actions';
 import {setPageTitle} from '../../services/pageTitle';
-import {getConnectorsConfiguration} from '../../actions';
 import {EmptyStateConnectors} from './EmptyStateConnectors';
 import {ChannelCard} from './ChannelCard';
 import {SimpleLoader} from 'components';
-import {getComponentStatus} from '../../services/getComponentStatus';
+import {getComponentStatus, formatComponentNameToConfigKey} from '../../services';
 import {CONNECTORS_CONNECTED_ROUTE} from '../../routes/routes';
 import styles from './index.module.scss';
 
@@ -86,8 +85,6 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
     return catalogList[componentNameCatalog] && catalogList[componentNameCatalog].installed === true;
   };
 
-  const formatComponentNameToConfigKey = (componentName: string) => componentName.split('/')[1];
-
   return (
     <div className={styles.channelsWrapper}>
       <div className={styles.channelsHeadline}>
@@ -113,27 +110,25 @@ const Connectors = (props: ConnectedProps<typeof connector>) => {
                       channelsToShow={channelsBySource(item.source).length}
                       componentStatus={getComponentStatus(
                         isInstalled,
-                        Object.keys(connectors[item.configKey]).length > 0 ||
-                          item.source === Source.chatPlugin,
+                        Object.keys(connectors[item.configKey]).length > 0 || item.source === Source.chatPlugin,
                         components[item.configKey]?.enabled
                       )}
                       key={item.displayName}
                     />
                   )) ||
-                (channelsBySource(item.source).length > 0 &&
-                  isComponentInstalled(item.name) && (
-                    <div className={styles.cardContainer} key={item.displayName}>
-                      <InfoCard
-                        installed
-                        style={InfoCardStyle.expanded}
-                        componentInfo={item}
-                        addChannelAction={() => {
-                          navigate(CONNECTORS_CONNECTED_ROUTE + '/' + item.source);
-                        }}
-                      />
-                    </div>
-                  )) ||
-                (components && isComponentInstalled(item.name) && (
+                (channelsBySource(item.source).length > 0 && isComponentInstalled(item.name) && (
+                  <div className={styles.cardContainer} key={item.displayName}>
+                    <InfoCard
+                      installed
+                      style={InfoCardStyle.expanded}
+                      componentInfo={item}
+                      addChannelAction={() => {
+                        navigate(CONNECTORS_CONNECTED_ROUTE + '/' + item.source);
+                      }}
+                    />
+                  </div>
+                )) ||
+                (components && isComponentInstalled(item.name) && connectors && connectors[item.configKey] && (
                   <div className={styles.cardContainer} key={item.displayName}>
                     <InfoCard
                       installed={true}

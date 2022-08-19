@@ -15,7 +15,7 @@ export enum Source {
   webhooks = 'webhooks',
   amelia = 'amelia',
   mobile = 'mobile',
-  whatsappBusinessCloud = "whatsappBusinessCloud"
+  whatsappBusinessCloud = 'whatsappBusinessCloud',
 }
 
 export const prettifySource = (source: string) =>
