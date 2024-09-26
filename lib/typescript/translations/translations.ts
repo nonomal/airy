@@ -4,6 +4,38 @@ import {initReactI18next} from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      //Components
+      chromaDescription: 'Chroma is a vector database that helps LLM applications to have long term memory.',
+      faissDescription:
+        'FAISS is a vector database that allows developers to quickly group and search embeddings of documents that are similar to each other.',
+      llama2Description:
+        'LLama2 is a large language model that can be downloaded and deployed in a self-hosted environment.',
+      mosaicDescription:
+        'Mosaic is an AI tool to easily train and deploy generative AI models on your data, in your secure environment.',
+      pineconeDescription:
+        'Pinecone is a fully managed vector database solution, used to store and search vector embeddings.',
+      weaviateDescription:
+        'Weaviate is an open-source vector database that allows storing object and vector embeddings from various ML-models.',
+      openaiDescription: 'The OpenAI connector is a bidirectional connector that connects Airy to the OpenAI LLM.',
+      gmailDescription:
+        'The Gmail connector is a bidirectional connector for sending and receiving e-mail messages through the Google Mail API.',
+      slackDescription: 'Slack is a messaging app for business that connects people to the information they need.',
+      anthropicDescription:
+        'Anthropic is known for developing AI systems and large language models with a focus on safe, steerable, and reliable solutions.',
+      'aws-bedrockDescription':
+        'Amazon Bedrock is a fully managed service that offers a choice of high-performing foundation models (FMs) from leading AI companies.',
+      'faiss-connectorDescription':
+        'FAISS is a vector database that allows developers to quickly group and search embeddings of documents that are similar to each other.',
+      googleaiDescription:
+        'Google AI Studio is the fastest way to start building with Gemini, our next generation multimodal generative AI model.',
+      groqDescription:
+        'The LPU™ Inference Engine by Groq is a hardware and software platform that delivers exceptional compute speed, quality, and energy efficiency.',
+      mistralaiDescription:
+        'Mistral AI is a French company specializing in artificial intelligence products. Founded in April 2023 by former employees of Meta Platforms and Google DeepMind, the company has quickly risen to prominence in the AI sector.',
+      flinkDescription:
+        'Apache Flink is a framework and distributed processing engine for stateful computations over unbounded and bounded data streams.',
+      'llm-controllerDescription': 'Choose your prefered LLM with the LLM Connector.',
+
       //Input Component
       fieldCannotBeEmpty: 'This field cannot be empty.',
       invalidURL: 'The URL is invalid',
@@ -592,10 +624,55 @@ const resources = {
       noWebhooksText: `You don't have any Webhooks installed, please `,
       customHeader: 'Customer Header',
       signKey: 'Sign key',
+      noLLMs: 'No LLMs Found',
+      noLLMsText: `You don't have any LLMs installed, please `,
+      noLLMConsumers: 'No LLM Consumers Found',
+      noLLMConsumersText: `You don't have any LLM Consumers installed, please `,
+      llmConsumerNameExplanation: 'The name of the LLM Consumer',
+      llmConsumerTopicNameExplanation: 'The name of the topic to which the LLM Consumer is subscribed',
+      llmConsumerTextFieldExplanation: 'The text field of the LLM Consumer',
+      llmConsumerMetadataFieldsExplanation: 'The metadata fields of the LLM Consumer',
+      llmConsumerCreatedSuccessfully: 'LLM Consumer created successfully',
+      llmConsumerTypeExplanation: 'The type serialization of the LLM Consumer',
     },
   },
   de: {
     translation: {
+      //Components
+      chromaDescription:
+        'Chroma ist eine Vektordatenbank, die LLM-Anwendungen dabei hilft, über ein Langzeitgedächtnis zu verfügen.',
+      faissDescription:
+        'FAISS ist eine Vektordatenbank, die es Entwicklern ermöglicht, Einbettungen von einander ähnlichen Dokumenten schnell zu gruppieren und zu durchsuchen.',
+      llama2Description:
+        'LLama2 ist ein großes Sprachmodell, das heruntergeladen und in einer selbst gehosteten Umgebung bereitgestellt werden kann.',
+      mosaicDescription:
+        'Mosaik ist ein KI-Tool zum einfachen Trainieren und Bereitstellen generativer KI-Modelle auf Ihren Daten in Ihrer sicheren Umgebung.',
+      pineconeDescription:
+        'Pinecone ist eine vollständig verwaltete Vektordatenbanklösung, die zum Speichern und Durchsuchen von Vektoreinbettungen verwendet wird.',
+      weaviateDescription:
+        'Weaviate ist eine Open-Source-Vektordatenbank, die das Speichern von Objekt- und Vektoreinbettungen aus verschiedenen ML-Modellen ermöglicht.',
+      openaiDescription:
+        'Der OpenAI-Connector ist ein bidirektionaler Connector, der Airy mit dem OpenAI LLM verbindet.',
+      gmailDescription:
+        'Der Gmail-Connector ist ein bidirektionaler Connector zum Senden und Empfangen von E-Mail-Nachrichten über die Google Mail-API.',
+      slackDescription:
+        'Slack ist eine Messaging-App für Unternehmen, die Menschen mit den Informationen verbindet, die sie benötigen.',
+      anthropicDescription:
+        'Anthropic ist bekannt für die Entwicklung von KI-Systemen und großen Sprachmodellen mit Fokus auf sichere, lenkbare und zuverlässige Lösungen.',
+      'aws-bedrockDescription':
+        'Amazon Bedrock ist ein vollständig verwalteter Service, der eine Auswahl an leistungsstarken Grundmodellen (FMs) von führenden KI-Unternehmen bietet.',
+      'faiss-connectorDescription':
+        'FAISS ist eine Vektordatenbank, die es Entwicklern ermöglicht, Einbettungen von ähnlichen Dokumenten schnell zu gruppieren und zu durchsuchen.',
+      googleaiDescription:
+        'Google AI Studio ist der schnellste Weg, um mit Gemini, unserem nächsten multimodalen generativen KI-Modell, zu arbeiten.',
+      groqDescription:
+        'Die LPU™ Inference Engine von Groq ist eine Hardware- und Softwareplattform, die außergewöhnliche Rechengeschwindigkeit, Qualität und Energieeffizienz bietet.',
+      mistralaiDescription:
+        'Mistral AI ist ein französisches Unternehmen, das sich auf Produkte der künstlichen Intelligenz spezialisiert hat. Gegründet im April 2023 von ehemaligen Mitarbeitern von Meta Platforms und Google DeepMind, hat sich das Unternehmen schnell einen Namen im KI-Sektor gemacht.',
+      flinkDescription:
+        'Apache Flink ist ein Framework und eine verteilte Verarbeitungseinheit für zustandsbehaftete Berechnungen über unbeschränkte und beschränkte Datenströme.',
+      'llm-controllerDescription': 'Wählen Sie Ihr bevorzugtes LLM mit dem LLM-Connector.',
+
       //Input Component
       fieldCannotBeEmpty: 'Dieses Feld kann nicht leer sein.',
       invalidURL: 'Die URL ist ungültig',
@@ -1195,10 +1272,54 @@ const resources = {
       noWebhooksText: 'Sie haben keine Webhooks installiert, bitte ',
       customHeader: 'Kundenkopfzeile',
       signKey: 'Signierschlüssel',
+      noLLMs: 'Keine LLMs gefunden',
+      noLLMsText: `Sie haben keine LLMs installiert, bitte `,
+      noLLMConsumers: 'Keine LLM Consumers gefunden',
+      noLLMConsumersText: `Sie haben keine LLM Consumers installiert, bitte `,
+      llmConsumerNameExplanation: 'Der Name des LLM Consumer',
+      llmConsumerTopicNameExplanation: 'Der Name des LLM Consumer Topics',
+      llmConsumerTextFieldExplanation: 'Das Textfeld des LLM Consumer',
+      llmConsumerMetadataFieldsExplanation: 'Die Metadatenfelder des LLM Consumer',
+      llmConsumerCreatedSuccessfully: 'LLM Consumer erfolgreich erstellt',
+      llmConsumerTypeExplanation: 'Der Typ des LLM Consumer',
     },
   },
   fr: {
     translation: {
+      //Components
+      chromaDescription:
+        "Chroma est une base de données vectorielle qui aide les applications LLM à disposer d'une mémoire à long terme.",
+      faissDescription:
+        'FAISS est une base de données vectorielle qui permet aux développeurs de regrouper et de rechercher rapidement des intégrations de documents similaires les uns aux autres.',
+      llama2Description:
+        'LLama2 est un grand modèle de langage qui peut être téléchargé et déployé dans un environnement auto-hébergé.',
+      mosaicDescription:
+        "Mosaic est un outil d'IA permettant de former et de déployer facilement des modèles d'IA génératifs sur vos données, dans votre environnement sécurisé.",
+      pineconeDescription:
+        'Pinecone est une solution de base de données vectorielle entièrement gérée, utilisée pour stocker et rechercher des intégrations vectorielles.',
+      weaviateDescription:
+        "Weaviate est une base de données vectorielles open source qui permet de stocker des intégrations d'objets et de vecteurs à partir de divers modèles ML.",
+      openaiDescription: 'Le connecteur OpenAI est un connecteur bidirectionnel qui connecte Airy au OpenAI LLM.',
+      gmailDescription:
+        "Le connecteur Gmail est un connecteur bidirectionnel permettant d'envoyer et de recevoir des messages électroniques via l'API Google Mail.",
+      slackDescription:
+        'Slack est une application de messagerie pour les entreprises qui connecte les gens aux informations dont ils ont besoin.',
+      anthropicDescription:
+        "Anthropic est connu pour développer des systèmes d'IA et des grands modèles de langage avec un accent sur des solutions sûres, contrôlables et fiables.",
+      'aws-bedrockDescription':
+        "Amazon Bedrock est un service entièrement géré qui offre un choix de modèles de fondation performants (FM) provenant des principales entreprises d'IA.",
+      'faiss-connectorDescription':
+        'FAISS est une base de données vectorielle qui permet aux développeurs de regrouper rapidement et de rechercher des embeddings de documents similaires entre eux.',
+      googleaiDescription:
+        "Google AI Studio est le moyen le plus rapide de commencer à construire avec Gemini, notre modèle d'IA générative multimodale de nouvelle génération.",
+      groqDescription:
+        "Le moteur d'inférence LPU™ de Groq est une plateforme matérielle et logicielle qui offre une vitesse de calcul exceptionnelle, une qualité et une efficacité énergétique.",
+      mistralaiDescription:
+        "Mistral AI est une entreprise française spécialisée dans les produits d'intelligence artificielle. Fondée en avril 2023 par d'anciens employés de Meta Platforms et Google DeepMind, l'entreprise s'est rapidement imposée dans le secteur de l'IA.",
+      flinkDescription:
+        'Apache Flink est un framework et un moteur de traitement distribué pour les calculs avec état sur des flux de données bornés et non bornés.',
+      'llm-controllerDescription': 'Choisissez votre LLM préféré avec le connecteur LLM.',
+
       //Input Component
       fieldCannotBeEmpty: 'Ce champ ne peut pas être vide.',
       invalidURL: 'URL non valide',
@@ -1792,10 +1913,54 @@ const resources = {
       noWebhooksText: `Vous n'avez pas de Webhooks installé, veuillez vous `,
       customHeader: 'En-tête du client',
       signKey: 'Touche de signature',
+      noLLMs: 'Pas de LLMs trouvés',
+      noLLMsText: `Vous n'avez pas de LLMs installé, veuillez vous `,
+      noLLMConsumers: 'Pas de LLM Consumers trouvés',
+      noLLMConsumersText: `Vous n'avez pas de LLM Consumers installé, veuillez vous `,
+      llmConsumerNameExplanation: 'Le nom du LLM Consumer',
+      llmConsumerTopicNameExplanation: 'Le nom du topic du LLM Consumer',
+      llmConsumerTextFieldExplanation: 'Le champ de texte du LLM Consumer',
+      llmConsumerMetadataFieldsExplanation: 'Les champs de métadonnées du LLM Consumer',
+      llmConsumerCreatedSuccessfully: 'LLM Consumer créé avec succès',
+      llmConsumerTypeExplanation: 'Le type du LLM Consumer',
     },
   },
   es: {
     translation: {
+      //Components
+      chromaDescription:
+        'Chroma es una base de datos vectorial que ayuda a las aplicaciones LLM a tener memoria a largo plazo.',
+      faissDescription:
+        'FAISS es una base de datos vectorial que permite a los desarrolladores agrupar y buscar rápidamente incrustaciones de documentos que son similares entre sí.',
+      llama2Description:
+        'LLama2 es un modelo de lenguaje grande que se puede descargar e implementar en un entorno autohospedado.',
+      mosaicDescription:
+        'Mosaic es una herramienta de IA para entrenar e implementar fácilmente modelos de IA generativos en sus datos, en su entorno seguro.',
+      pineconeDescription:
+        'Pinecone es una solución de base de datos de vectores totalmente administrada, que se utiliza para almacenar y buscar incrustaciones de vectores.',
+      weaviateDescription:
+        'Weaviate es una base de datos vectorial de código abierto que permite almacenar incrustaciones de objetos y vectores de varios modelos ML.',
+      openaiDescription: 'El conector OpenAI es un conector bidireccional que conecta Airy con OpenAI LLM.',
+      gmailDescription:
+        'El conector Gmail es un conector bidireccional para enviar y recibir mensajes de correo electrónico a través de la API de Google Mail.',
+      slackDescription:
+        'Slack es una aplicación de mensajería para empresas que conecta a las personas con la información que necesitan.',
+      anthropicDescription:
+        'Anthropic es conocido por desarrollar sistemas de IA y grandes modelos de lenguaje con un enfoque en soluciones seguras, controlables y confiables.',
+      'aws-bedrockDescription':
+        'Amazon Bedrock es un servicio completamente gestionado que ofrece una selección de modelos base de alto rendimiento (FM) de las principales empresas de IA.',
+      'faiss-connectorDescription':
+        'FAISS es una base de datos vectorial que permite a los desarrolladores agrupar rápidamente y buscar incrustaciones de documentos que son similares entre sí.',
+      googleaiDescription:
+        'Google AI Studio es la forma más rápida de empezar a construir con Gemini, nuestro modelo de IA generativa multimodal de próxima generación.',
+      groqDescription:
+        'El motor de inferencia LPU™ de Groq es una plataforma de hardware y software que ofrece una velocidad de cálculo, calidad y eficiencia energética excepcionales.',
+      mistralaiDescription:
+        'Mistral AI es una empresa francesa especializada en productos de inteligencia artificial. Fundada en abril de 2023 por ex empleados de Meta Platforms y Google DeepMind, la empresa ha ganado rápidamente prominencia en el sector de la IA.',
+      flinkDescription:
+        'Apache Flink es un marco de trabajo y motor de procesamiento distribuido para cálculos con estado sobre flujos de datos acotados y no acotados.',
+      'llm-controllerDescription': 'Elija su LLM preferido con el conector LLM.',
+
       //Input Component
       fieldCannotBeEmpty: 'El campo de texto no puede estar vacío.',
       invalidURL: 'La URL no es válida',
@@ -2392,6 +2557,16 @@ const resources = {
       noWebhooksText: 'No tiene instalado ningún Webhooks, por favor, ',
       customHeader: 'Cabecera del cliente',
       signKey: 'Clave de la firma',
+      noLLMs: 'No se han encontrado LLMs',
+      noLLMsText: `No tiene instalado ningún LLMs, por favor, `,
+      noLLMConsumers: 'No se han encontrado LLM Consumers',
+      noLLMConsumersText: `No tiene instalado ningún LLM Consumer, por favor, `,
+      llmConsumerNameExplanation: 'El nombre del LLM Consumer',
+      llmConsumerTopicNameExplanation: 'El nombre del topic del LLM Consumer',
+      llmConsumerTextFieldExplanation: 'El campo de texto del LLM Consumer',
+      llmConsumerMetadataFieldsExplanation: 'Los campos de metadatos del LLM Consumer',
+      llmConsumerCreatedSuccessfully: 'LLM Consumer creado con éxito',
+      llmConsumerTypeExplanation: 'El tipo de serialización del LLM Consumer',
     },
   },
 };

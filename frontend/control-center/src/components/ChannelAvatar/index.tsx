@@ -19,6 +19,19 @@ import {ReactComponent as IbmWatsonAssistantAvatar} from 'assets/images/icons/ib
 import {ReactComponent as RedisAvatar} from 'assets/images/icons/redisLogo.svg';
 import {ReactComponent as PostgresAvatar} from 'assets/images/icons/postgresLogo.svg';
 import {ReactComponent as FeastAvatar} from 'assets/images/icons/feastLogo.svg';
+import {ReactComponent as MetaAvatar} from 'assets/images/icons/meta.svg';
+import {ReactComponent as OpenaiAvatar} from 'assets/images/icons/openai.svg';
+import {ReactComponent as PineconeAvatar} from 'assets/images/icons/pinecone.svg';
+import {ReactComponent as ChromaAvatar} from 'assets/images/icons/chroma.svg';
+import {ReactComponent as WeaviateAvatar} from 'assets/images/icons/weaviate.svg';
+import {ReactComponent as GmailAvatar} from 'assets/images/icons/gmail.svg';
+import {ReactComponent as SlackAvatar} from 'assets/images/icons/slack.svg';
+import {ReactComponent as FlinkAvatar} from 'assets/images/icons/flink.svg';
+import {ReactComponent as AnthropicAvatar} from 'assets/images/icons/anthropic.svg';
+import {ReactComponent as MistralAvatar} from 'assets/images/icons/mistral-ai.svg';
+import {ReactComponent as GoogleAIAvatar} from 'assets/images/icons/google-ai.svg';
+import {ReactComponent as GroqAvatar} from 'assets/images/icons/groq.svg';
+import {ReactComponent as AWSBedrockAvatar} from 'assets/images/icons/aws.svg';
 
 import {Channel, Source} from 'model';
 import styles from './index.module.scss';
@@ -98,6 +111,44 @@ export const getChannelAvatar = (source: string) => {
     case Source.feast:
     case 'Feast':
       return <FeastAvatar />;
+    case Source.faiss:
+    case 'FAISS':
+      return <MetaAvatar />;
+    case Source.faissConnector:
+    case 'FAISS connector':
+      return <MetaAvatar />;
+    case Source.llama2:
+    case 'Llama2':
+      return <MetaAvatar />;
+    case Source.openaiConnector:
+    case 'OpenAI':
+      return <OpenaiAvatar />;
+    case Source.pineconeConnector:
+    case 'Pinecone':
+      return <PineconeAvatar />;
+    case Source.chroma:
+    case 'Chroma':
+      return <ChromaAvatar />;
+    case Source.weaviate:
+    case 'Weaviate':
+      return <WeaviateAvatar />;
+    case Source.gmail:
+    case 'Gmail':
+      return <GmailAvatar />;
+    case 'Slack':
+      return <SlackAvatar />;
+    case 'Flink':
+      return <FlinkAvatar />;
+    case 'Anthropic':
+      return <AnthropicAvatar />;
+    case 'Mistral AI':
+      return <MistralAvatar />;
+    case 'Google AI Studio':
+      return <GoogleAIAvatar />;
+    case 'groq':
+      return <GroqAvatar />;
+    case 'AWS Bedrock':
+      return <AWSBedrockAvatar />;
 
     default:
       return <AiryAvatar />;
